@@ -49,7 +49,7 @@ class ReviewPage extends Component {
 
     render() {
         return (
-            <>
+       
                 <div>
                     <StepperBar activeStep='4'></StepperBar>
 
@@ -81,9 +81,9 @@ class ReviewPage extends Component {
                     <button className="cancelButton" onClick={this.handleCancelButton}>Cancel</button>
                     <button className="publishButton" onClick={this.handleClick}>Publish</button>
                 </div>
-            </>
-        )
-    }
+         </div>
+            
+        )}
 }
 
 const mapReduxStateToProps = reduxState => ({
