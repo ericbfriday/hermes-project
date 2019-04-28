@@ -30,10 +30,10 @@ import { createMuiTheme } from '@material-ui/core/styles';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#33ab9f',
-      main: '#F9BF3B',
-      dark: '#D35400',
-      contrastText: '#fff',
+      light: '#006487', // off white
+      main: '#CA9E1C', // gold
+      dark: '#002A38', // dark blue
+      contrastText: '#EBEFF0', // blue
     },
     secondary: {
       light: '#ff7961',
@@ -63,12 +63,12 @@ class App extends Component {
   }
 
   render() {
-    
+
     return (
-      
+
       <MuiThemeProvider theme={theme}>
       <Router>
-        <div> 
+        <div>
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -136,7 +136,7 @@ class App extends Component {
               path="/publish-page"
               component={PublishPage}
               />
-              
+
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>

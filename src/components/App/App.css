@@ -1,10 +1,9 @@
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: #EBEFF0;
     /* font-family:'Lato', sans-serif; */
     font-family: 'Roboto', sans-serif;
     margin: 0px;
     font-size: 1.5em;
-    
 }
 
 .alert {
@@ -21,7 +20,6 @@ form {
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 2px 2px #cccccc;
-    
 }
 
 form h1 {
@@ -37,78 +35,84 @@ input {
     text-align: left;
 }
 
-.pwInput{
+.pwInput {
     margin-bottom: 20px;
 }
 
-.log-in, .log-out, .register {
-  background-color: #00acb0;
-  border-radius: 4px;
-  color: #f8f8f8;
-  min-height: 50px;
-  min-width: 100px;
-  outline:0;
-  cursor: pointer;
+.log-in,
+.log-out,
+.register {
+    background-color: #00acb0;
+    border-radius: 4px;
+    color: #f8f8f8;
+    min-height: 50px;
+    min-width: 100px;
+    outline: 0;
+    cursor: pointer;
 }
 
-.log-in:hover, .log-out:hover, .register:hover {
-  background-color: #008183;
+.log-in:hover,
+.log-out:hover,
+.register:hover {
+    background-color: #008183;
 }
+
 
 /* This line makes the "Register" and "Login" buttons look like links */
+
 .link-button {
-    background:none;
-    color:inherit;
-    border:none;
-    padding:0;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
     font: inherit;
-    outline:0;
-    border-bottom:1px solid #444; 
+    outline: 0;
+    border-bottom: 1px solid #444;
     cursor: pointer;
 }
 
-.platforms-connect {
-    cursor: pointer;
-    width: 300px;
-    height: 150px;
-}
-
-.buttonClass{
-    
+.buttonClass {
     background: #F27935;
     color: white;
     font-size: 20px;
     padding: 10px 35px;
     border-radius: 5px;
     transition: all .3s;
-    
 }
-.buttonClass:hover{
+
+.buttonClass:hover {
     background: rgb(182, 91, 39);
 }
 
+
+/* .myButton --> for primary call to action */
+
 .myButton {
-	-moz-box-shadow: 0px 13px 14px -4px #cfcfcf;
-	-webkit-box-shadow: 0px 13px 14px -4px #cfcfcf;
-	box-shadow: 0px 13px 14px -4px #cfcfcf;
-	background-color:#ffce6b;
-	-moz-border-radius:8px;
-	-webkit-border-radius:8px;
-	border-radius:8px;
-	display:inline-block;
-	cursor:pointer;
-	color:#805803;
-	font-family:Arial;
-	font-size:16px;
-	font-weight:bold;
-	padding:13px 16px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffa70f;
+    -moz-box-shadow: 0px 5px 7px -2px #cfcfcf;
+    -webkit-box-shadow: 0px 5px 7px -2px #cfcfcf;
+    box-shadow: 0px 5px 7px -2px #cfcfcf;
+    background-color: #006487;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    cursor: pointer;
+    color: #EBEFF0;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 13px 16px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #002A38;
 }
+
 .myButton:hover {
-	background-color:#ffbb3d;
+    background-color: #1F7FA1;
+    -moz-box-shadow: 0px 10px 14px -2px #cfcfcf;
+    -webkit-box-shadow: 0px 10px 14px -2px #cfcfcf;
+    box-shadow: 0px 10px 14px -2px #cfcfcf;
 }
+
 .myButton:active {
-	position:relative;
-	top:1px;
+    position: relative;
+    /* top:1px; */
 }

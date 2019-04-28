@@ -36,7 +36,6 @@ const redirect_uri = base_uri + 'wordpress/callback_wordpress';
  */
 
 router.get('/token_check', function(req, res) {
-    debugger;
     const userId = req.user.id; // set user id
     const queryText = `SELECT * FROM storage WHERE user_id = $1;`;
     pool.query(queryText, [userId]) // query to get the token and then send a bolien.
@@ -49,19 +48,27 @@ router.get('/token_check', function(req, res) {
                 res.send(false);
             }
         });
-})
+});
 
 /**
  * EF Note:
- * This endpoint is essentially used to pass the one-time-use code from wordpress -> client -> you.
- * From there, you trade in that one-time-use code for a full access_token. The access_token lasts
- * forever I believe, and it's what is actually going to allow your server to post data to Wordpress.com.
+ * This endpoint is used to pass an `authorization code` from wordpress -> client -> your server.
+ * From there, your server trades in that one-time-use `authorization code` for a full `access token`.
+ * The `access token` lasts forever I believe (for this site, at least).
+ * This is the basic flow of the OAuth 2 Authorization Grant practice. I've added lots of notes on it
+ * to the code below. You almost certainly know a lot of it, but it's good practice for me to review it
+ * by writing it down, so I'm doing it anyways.
+ * More details here: [[https://oauth.net/2/grant-types/authorization-code/]].
  */
 router.get('/callback_wordpress', function callbackWordpress(req, res) {
-    const code = req.query.code || null; // this is the token we got back from wordpress
-    if (!code) res.status(500).send('There was an error in the Wordpress callback. No code was found.');
+    /**
+     * The `authorization code` has to be sent to our client application from wordpress.com. In this grant flow,
+     * they do that by passing the code as a query parameter.
+     */
+    const code = req.query.code || null;
+    if (code === null || typeof(code) === 'undefined') res.status(500).send('There was an error in the Wordpress callback. No code was found.');
     const userId = req.user.id || null;
-    if (!userId) res.status(500).send('There was an error in the Wordpress callback. No user ID was found.');
+    if (!userId === null || typeof(userId) === 'undefined') res.status(500).send('There was an error in the Wordpress callback. No user ID was found.');
 
     /**
      * EF Note:
@@ -74,10 +81,10 @@ router.get('/callback_wordpress', function callbackWordpress(req, res) {
      * 4) Modify the `Request` object so that it transmits the information we need as `form-data`.
      * 5) Then we have a little bit of weird Node magic that occurs. I'll explain that at the end.
      *
-     * More details are at each step below.
+     * Details are at each step below.
      */
 
-    // 1) We set the basic information for the call. It's going to be a POST request to the proper URI.
+    // 1) We set the basic information for the call. It's going to be a POST request to the oauth token request URI.
     const options = {
         method: 'POST',
         uri: 'https://public-api.wordpress.com/oauth2/token',
@@ -93,7 +100,6 @@ router.get('/callback_wordpress', function callbackWordpress(req, res) {
         const errorDetected = error || parsedBody.error;
         if (error || parsedBody.error) {
             errorInstance = new Error(error || parsedBody.error);
-            !error ? console.log(parsedBody.error) : console.log(error);
         };
         if (parsedBody.access_token) {
             // EF Note: checkStorage should probably be returning a Promise, and then we tailor the response based on success
@@ -102,12 +108,23 @@ router.get('/callback_wordpress', function callbackWordpress(req, res) {
             // EF Note: I have no idea where you actually want the client redirected to.
             res.redirect('/#/connect');
         } else {
-            res.status(500).send(new Error('Error getting access token from WordPress API.'));
+            res.status(500).send(errorInstance);
         }
     }
-    const accessTokenRequest = request.post(options, accessTokenCallback);
 
-    const form = accessTokenRequest.form();
+    /**
+     * 3) This is where it's probably different than you've seen it before. We set a variable to reference
+     * the request.post call with the two parameters we're feeding in. _However_ it doesn't actually make the
+     * HTTP call until the next event loop. We leverage this to allow us to modify the request in the next code block.
+     */
+    const accessTokenRequestInstance = request.post(options, accessTokenCallback);
+
+    /**
+     * Here is where we actually set the request to properly encode the data as `multipart/form-data`. This
+     * is an encoding that allows us to send the results of `HTML form`s to servers when those forms contain
+     * files.
+     */
+    const form = accessTokenRequestInstance.form();
     form.append('client_id', client_id);
     form.append('redirect_uri', redirect_uri);
     form.append('client_secret', client_secret);
@@ -121,14 +138,14 @@ router.post('/post_episode', function(req, res) {
     const type = req.body.type;
     const content = req.body.content;
     const featured_media = req.body.featured_media;
-    // EF Note: TODO change the below to remove 5 and add in error handling.
     const userId = !req.user ? null : req.user.id;
     if (!userId) res.status(500).send('There was an error in the Wordpress callback. No user ID was found.');
 
     const queryText = `SELECT * FROM "storage" WHERE "user_id" = $1;`
     pool.query(queryText, [userId])
         .then((results) => {
-            if (results.rows[0].wordpress) {
+            debugger;
+            if (results.rowCount > 0 && results.rows[0].wordpress) {
                 const access_token = results.rows[0].wordpress;
                 const blogurl = results.rows[0].blog_url;
                 const blogid = results.rows[0].blog_id;
@@ -179,7 +196,7 @@ checkStorage = (access_token, userId, blogId, blogurl) => {
                 updateToStorage(access_token, userId, blogId, blogurl) // if account update db
             }
         })
-}
+};
 updateToStorage = (access_token, userId, blogId, blogurl) => {
     const queryText = `UPDATE "storage" SET "wordpress"=$1, "blog_id"=$3, "blog_url"=$4 WHERE "user_id"=$2;` //update access token by user id
     pool.query(queryText, [access_token, userId, blogId, blogurl])
@@ -188,7 +205,7 @@ updateToStorage = (access_token, userId, blogId, blogurl) => {
         }).catch(error => {
             console.log('There was an error adding access_token to database', error);
         });
-}
+};
 
 postToStorage = (access_token, userId, blogId, blogurl) => {
     const queryText = `INSERT INTO "storage" ("user_id", "wordpress", "blog_id", "blog_url") VALUES ($1,$2, $3, $4)` //create access token by user id
@@ -198,5 +215,5 @@ postToStorage = (access_token, userId, blogId, blogurl) => {
         }).catch(error => {
             console.log('There was an error adding access_token to database', error);
         });
-}
+};
 module.exports = router;
