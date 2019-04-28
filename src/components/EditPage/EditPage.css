@@ -11,9 +11,9 @@ body{
 
     border: 1px solid #000000;
     box-sizing: border-box;
-}
+} */
 
-.title {
+/* .title {
     width: 118.5px;
     height: 16.5px;
     left: 208px;
@@ -26,9 +26,9 @@ body{
     line-height: normal;
 
     color: #000000;
-}
+} */
 
-.title-input {
+/* .title-input {
     width: 775.5px;
     height: 30px;
     left: 203px;
@@ -37,9 +37,9 @@ body{
     background: linear-gradient(0deg, #ECEAEA, #ECEAEA), #7B7B7B;
     opacity: 0.5;
     border-radius: 21px;
-}
+} */
 
-.description {
+/* .description {
     width: 113px;
     height: 22px;
     left: 209px;
@@ -53,9 +53,9 @@ body{
 
     color: #000000;
 
-}
+} */
 
-.description-input {
+/* .description-input {
     width: 785.25px;
     height: 111.75px;
     left: 196px;

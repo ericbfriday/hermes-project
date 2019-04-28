@@ -6,6 +6,8 @@ import StepperBar from '../StepperBar/StepperBar';
 import swal from 'sweetalert';
 // import Grid from '@material-ui/core/Grid';
 import './EditPage.css';
+import Grid from '@material-ui/core/Grid';
+
 
 class EditPage extends Component {
     componentDidMount = () => {
@@ -49,23 +51,44 @@ class EditPage extends Component {
                     <h2>Edit Page</h2>
 
                 </div>
-                {/* <Grid
+                <Grid
                     container
                     alignItems="center"
                     direction="column"
-                    justify="space-evenly"
-                > */}
-                    <div>
-                        {/* <Grid item xs={12}> */}
-                            <EditPodBeanForm />
-                        {/* </Grid> */}
-                        {/* <Grid item xs={12}> */}
-                            <EditWordPressForm />
-                        {/* </Grid> */}
-                    <button className="myButton" onClick={this.handleCancelButton}>Cancel</button>
-                    <button className="myButton" onClick={this.handleClick}>Next</button>
-                    </div>
-                {/* </Grid> */}
+                    // justify="space-evenly"
+                >
+                    <Grid item >
+                        <Grid
+                            container
+                            direction="column"
+                        >
+                            <Grid item>
+                                <EditPodBeanForm />
+                            </Grid>
+                            <Grid item>
+                                <EditWordPressForm />
+                            </Grid>
+                        </Grid>
+                    </Grid>
+
+                    <Grid item >
+                        <Grid 
+                            container
+                            alignItems="center"
+                            direction="row"
+                        >
+                            <Grid item>
+                                <button className="myButton" onClick={this.handleCancelButton}>Cancel</button>
+                            </Grid>
+                            <Grid item>
+                                <button className="myButton" onClick={this.handleClick}>Next</button>
+                            </Grid>
+                        </Grid>
+                        
+                        
+                    </Grid>
+                    
+                </Grid>
             </>
         )
     }

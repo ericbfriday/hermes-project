@@ -6,6 +6,8 @@ body {
     font-size: 1.5em;
 }
 
+
+
 .alert {
     background-color: #ff4545;
     margin: 50px;
@@ -71,7 +73,13 @@ input {
     cursor: pointer;
 }
 
+<<<<<<< HEAD
 .buttonClass {
+=======
+
+.buttonClass{
+    
+>>>>>>> 6b55a85e2c9264c1fab0705bfc707dac17720f87
     background: #F27935;
     color: white;
     font-size: 20px;
@@ -84,6 +92,7 @@ input {
     background: rgb(182, 91, 39);
 }
 
+<<<<<<< HEAD
 
 /* .myButton --> for primary call to action */
 
@@ -103,16 +112,48 @@ input {
     padding: 13px 16px;
     text-decoration: none;
     text-shadow: 0px 1px 0px #002A38;
+=======
+/* .myButton --> for primary call to action */
+.myButton {
+	-moz-box-shadow: 0px 5px 7px -2px #cfcfcf;
+	-webkit-box-shadow: 0px 5px 7px -2px #cfcfcf;
+	box-shadow: 0px 5px 7px -2px #cfcfcf;
+	background-color:#006487;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	display:inline-block;
+	cursor:pointer;
+	color:#EBEFF0;
+	font-size:16px;
+	font-weight:bold;
+	padding:13px 16px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #002A38;
+>>>>>>> 6b55a85e2c9264c1fab0705bfc707dac17720f87
 }
 
 .myButton:hover {
+<<<<<<< HEAD
     background-color: #1F7FA1;
     -moz-box-shadow: 0px 10px 14px -2px #cfcfcf;
     -webkit-box-shadow: 0px 10px 14px -2px #cfcfcf;
     box-shadow: 0px 10px 14px -2px #cfcfcf;
+=======
+    background-color:#1F7FA1;
+    -moz-box-shadow: 0px 10px 14px -2px #cfcfcf;
+	-webkit-box-shadow: 0px 10px 14px -2px #cfcfcf;
+	box-shadow: 0px 10px 14px -2px #cfcfcf;
+>>>>>>> 6b55a85e2c9264c1fab0705bfc707dac17720f87
 }
 
 .myButton:active {
+<<<<<<< HEAD
     position: relative;
     /* top:1px; */
 }
+=======
+	position:relative;
+	/* top:1px; */
+}
+>>>>>>> 6b55a85e2c9264c1fab0705bfc707dac17720f87

@@ -1,7 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 
 
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        background: 'white',
+        flexWrap: 'wrap',
+        [theme.breakpoints.up("lg")]: {
+            width: '600px'
+        },
+        [theme.breakpoints.up("md")]: {
+            width: '600px'
+        }, 
+        [theme.breakpoints.up("sm")]: {
+            width: '600px'
+        }, 
+        [theme.breakpoints.up("xs")]: {
+            width: '600px'
+        }, 
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+    },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        // width: 200,
+    },
+    dense: {
+        marginTop: 19,
+    },
+    menu: {
+        width: 200,
+    },
+});
 class EditPodBeanForm extends Component {
 //held in reducer and in local state and are required by the apis to work
     state = {
@@ -32,34 +69,61 @@ class EditPodBeanForm extends Component {
 
 //form with inputfields 
     render() {
+        const { classes } = this.props;
+
         return (
             <>
-                <div className="podbean-box">
-                    <h4>Edit Required Information for PodBean Podcast</h4>
-                    <form onSubmit={this.addNewPodcast} className="podbean-form">
-                    <label className="title">
-                            Title of Piece
-                            <input className="piece"
-                                placeholder="piece"
-                                value={this.state.titleOfPiece}
-                                onChange={this.handleChange('titleOfPiece')} />
-                        </label>
-                        <label className="title">
-                            Title of Podcast
-                            <input className="title-input"
-                                placeholder="title"
-                                value={this.state.titleOfPodbean}
-                                onChange={this.handleChange('titleOfPodbean')} />
-                        </label>
-                        <label className="description">
-                            Description
-                            <input className="description-input"
-                                placeholder="description"
-                                value={this.state.description}
-                                onChange={this.handleChange('description')} />
-                        </label> 
-                    </form>
-                </div>
+                <Grid
+                    container
+                    direction="column"
+                    justify="left"
+                >
+                    <Grid item xs={12}>
+                        <Typography variant="h6" gutterBottom>
+                            Enter required information for Podbean Podcast.
+                        </Typography>
+                    </Grid>
+                    
+                    <Grid item xs={12}>
+                            <form className={classes.container}>
+                                <Grid item xs={12} sm={6}>
+                                    <TextField 
+                                        id="piece"
+                                        label="Name of Episode"
+                                        fullWidth
+                                        margin="normal"
+                                        value={this.state.titleOfPiece}
+                                        onChange={this.handleChange('titleOfPiece')}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12} sm={6}>
+                                    <TextField 
+                                        id="title-input"
+                                        label="Name of Podcast" 
+                                        fullWidth      
+                                        margin="normal"                                 
+                                        value={this.state.titleOfPodbean}
+                                        onChange={this.handleChange('titleOfPodbean')}
+                                    />
+                                </Grid>
+                                    
+                                <Grid item xs={12}>
+                                    <TextField 
+                                        id="description-input"
+                                        label="Description of Episode"
+                                        fullWidth
+                                        multiline
+                                        rowsMax="4"
+                                        margin="normal"
+                                        className={classes.textField}
+                                        value={this.state.description}
+                                        onChange={this.handleChange('description')}
+                                        />
+                                </Grid>
+                            </form>
+                    </Grid>
+                </Grid>
             </>
         )
     }
@@ -69,4 +133,4 @@ const mapReduxStateToProps = reduxState => ({
     reduxState: reduxState
 });
 
-export default connect(mapReduxStateToProps)(EditPodBeanForm);
+export default connect(mapReduxStateToProps)(withStyles(styles)(EditPodBeanForm));

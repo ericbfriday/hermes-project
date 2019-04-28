@@ -1,4 +1,4 @@
-.wordpressBox{
+/* .wordpressBox{
 background-color: #DADFE1;
 position: absolute;
 width: 508px;
@@ -11,4 +11,56 @@ border-radius: 4px;
   min-width: 100px;
   outline:5;
   cursor: pointer;
+}
+
+.wordpress-connect {
+  cursor: pointer;
+  position: absolute;
+  width: 427px;
+  height: 237px;
+  left: 244px;
+  top: 210px;
+}
+
+.podbean-connect {
+  position: absolute;
+  width: 427px;
+  height: 237px;
+  left: 730px;
+  top: 210px;
+} */
+
+.connect-div {
+	-moz-box-shadow: 0px 5px 7px -2px #cfcfcf;
+	-webkit-box-shadow: 0px 5px 7px -2px #cfcfcf;
+	box-shadow: 0px 5px 7px -2px #cfcfcf;
+	background-color:#ffffff;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	display:inline-block;
+	cursor:pointer;
+	color: #CA9E1C;
+	/* font-family:roboto; */
+	font-size:1rem;
+	font-weight:bold;
+  padding:1rem;
+  width: 427px;
+	
+}
+
+.connect-to {
+  margin-top: .5rem;
+  margin-bottom: 1rem;
+}
+
+.connect-div:hover {
+  color:#F9BF3B;
+  -moz-box-shadow: 0px 10px 14px -2px #cfcfcf;
+	-webkit-box-shadow: 0px 10px 14px -2px #cfcfcf;
+	box-shadow: 0px 10px 14px -2px #cfcfcf;
+}
+
+.image-div {
+  padding-left: 3rem;
 }

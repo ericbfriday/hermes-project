@@ -36,7 +36,7 @@ class LoginPage extends Component {
       <div>
        
         <div className="hermesLoginLogo">
-        <img  src="images/logo.png" alt="HERMES LOGO" /> 
+        <img  src="images/logo/logo.png" alt="HERMES LOGO" /> 
         </div> 
         {this.props.errors.loginMessage && (
           <h2
