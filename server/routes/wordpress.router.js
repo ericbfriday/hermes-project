@@ -120,7 +120,7 @@ router.get('/callback_wordpress', function callbackWordpress(req, res) {
     const accessTokenRequestInstance = request.post(options, accessTokenCallback);
 
     /**
-     * Here is where we actually set the request to properly encode the data as `multipart/form-data`. This
+     * 4) Here is where we actually set the request to properly encode the data as `multipart/form-data`. This
      * is an encoding that allows us to send the results of `HTML form`s to servers when those forms contain
      * files.
      */
@@ -130,6 +130,20 @@ router.get('/callback_wordpress', function callbackWordpress(req, res) {
     form.append('client_secret', client_secret);
     form.append('grant_type', 'authorization_code');
     form.append('code', code);
+
+    /**
+     * 5) Now, you're probably going to look at me with a funny expression and say, "WTF, why is this all out of
+     * order and how the heck are we supposed to use the request.post(..) if we're changing stuff after the fact?"
+     * I get it.
+     * Let's take a close look at step 3. In step 3 we create a variable that references the `Request` object returned
+     * by request.post(..) call. Notice that I'm saying it's referencing the `Request` object returned.... not the result
+     * of the HTTP POST request. _The HTTP POST call is not made at the instantiation (creation) of the `Request` object_.
+     * This means that you can modify the request object (in our case the variable `accessTokenRequestInstance`) by calling
+     * it's internal methods and settiing various attributes. We do this with the `accessTokenRequestInstance.form()` call
+     * and `form.append(..)` calls. All of this happens within the callback fn of `router.get('/callback_wordpress', callback(..))`.
+     * Once it's done executing that callback, then the `Request` object (which now has all of the definitions/attributes from
+     * the `form()` method and various `append(..)` calls) will actually execute the HTTP call as we'd expect.
+     */
 });
 
 router.post('/post_episode', function(req, res) {
